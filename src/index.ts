@@ -37,9 +37,13 @@ const createAsync = asyncFactory<State>(create);
 const changeTitle = create<string>('Change the title');
 
 /** The asynchronous login action; Error type is optional */
-const login = createAsync<LoginParams, UserToken, CustomError>(
+const login = createAsync<
+  LoginParams, // args of async function, started, done
+  UserToken,  // return of async function, and args of done
+  CustomError>(
   'Login',
-  async (params, dispatch) => {
+  async (params: LoginParams, dispatch) => {
+    console.log("Start async login", params);
     const url = `https://reqres.in/api/login`;
     const options: RequestInit = {
       method: 'POST',
@@ -73,22 +77,30 @@ const reducer = reducerWithInitialState(initial)
     ...state,
     title
   }))
-  .case(login.async.started, state => ({
-    ...state,
-    loggingIn: true,
-    error: undefined
-  }))
+  .case(login.async.started, (state, params) => {
+    // same params with async function
+    console.log("reducer/login started", params);
+    return {
+      ...state,
+      loggingIn: true,
+      error: undefined
+    };
+  })
   .case(login.async.failed, (state, { error }) => ({
     ...state,
     loggingIn: false,
     error
   }))
-  .case(login.async.done, (state, { result: userToken }) => ({
-    ...state,
-    userToken,
-    loggingIn: false,
-    error: undefined
-  }));
+  .case(login.async.done, (state, result) => {
+    // result: { params: [same params with async function], result: [return of async function]}
+    console.log("reducer/login done", result);
+    return {
+      ...state,
+      userToken: result.result.userToken,
+      loggingIn: false,
+      error: undefined
+    };
+  });
 
 /** Putting it all together */
 (async () => {
