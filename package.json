@@ -13,5 +13,12 @@
   "scripts": {
     "dev": "ts-node src/index.ts",
     "dev:watch": "ts-node-dev --respawn src/index.ts"
+  },
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "typescript-fsa-reducers": "^1.2.1",
+    "typescript-fsa-redux-thunk": "^2.1.9"
   }
 }
