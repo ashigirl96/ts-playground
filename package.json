@@ -6,6 +6,10 @@
   "author": "ashigirl96 <reon@mma.cs.tsukuba.ac.jp>",
   "license": "MIT",
   "devDependencies": {
+    "@types/jest": "^25.1.4",
+    "jest": "^25.1.0",
+    "jest-fetch-mock": "^3.0.3",
+    "ts-jest": "^25.2.1",
     "ts-node": "^8.6.2",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.8.3"
@@ -13,5 +17,35 @@
   "scripts": {
     "dev": "ts-node src/index.ts",
     "dev:watch": "ts-node-dev --respawn src/index.ts"
+  },
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "useBabelrc": true,
+        "tsConfigFile": "tsconfig.jest.json"
+      }
+    },
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest",
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testMatch": [
+      "**/__tests__/**/*.(js|jsx|ts|tsx)",
+      "**/?(*.)(spec|test).(js|jsx|ts|tsx)"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/vendor/bundle/"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json",
+      "ts",
+      "tsx"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(lodash-es|promise-file-reader)/)"
+    ]
   }
 }
