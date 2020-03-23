@@ -16,36 +16,7 @@
   },
   "scripts": {
     "dev": "ts-node src/index.ts",
-    "dev:watch": "ts-node-dev --respawn src/index.ts"
-  },
-  "jest": {
-    "globals": {
-      "ts-jest": {
-        "useBabelrc": true,
-        "tsConfigFile": "tsconfig.jest.json"
-      }
-    },
-    "transform": {
-      "^.+\\.jsx?$": "babel-jest",
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testMatch": [
-      "**/__tests__/**/*.(js|jsx|ts|tsx)",
-      "**/?(*.)(spec|test).(js|jsx|ts|tsx)"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/vendor/bundle/"
-    ],
-    "moduleFileExtensions": [
-      "js",
-      "jsx",
-      "json",
-      "ts",
-      "tsx"
-    ],
-    "transformIgnorePatterns": [
-      "node_modules/(?!(lodash-es|promise-file-reader)/)"
-    ]
+    "dev:watch": "ts-node-dev --respawn src/index.ts",
+    "test": "jest"
   }
 }
