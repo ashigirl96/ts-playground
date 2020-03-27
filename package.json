@@ -18,5 +18,13 @@
     "dev": "ts-node src/index.ts",
     "dev:watch": "ts-node-dev --respawn src/index.ts",
     "test": "jest"
+  },
+  "dependencies": {
+    "@types/redux-mock-store": "^1.0.2",
+    "redux": "^4.0.5",
+    "redux-mock-store": "^1.5.4",
+    "redux-thunk": "^2.3.0",
+    "typescript-fsa-reducers": "^1.2.1",
+    "typescript-fsa-redux-thunk": "^2.1.9"
   }
 }
