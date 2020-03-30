@@ -96,7 +96,7 @@ const reducer = reducerWithInitialState(initial)
     console.log("reducer/login done", result);
     return {
       ...state,
-      userToken: result.token,
+      userToken: result,
       loggingIn: false,
       error: undefined
     };
