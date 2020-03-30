@@ -6,16 +6,26 @@
   "author": "ashigirl96 <reon@mma.cs.tsukuba.ac.jp>",
   "license": "MIT",
   "devDependencies": {
-    "jest": "^25.2.4",
+    "@types/jest": "^25.1.4",
+    "jest": "^25.1.0",
+    "jest-fetch-mock": "^3.0.3",
+    "ts-jest": "^25.2.1",
     "ts-node": "^8.6.2",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.8.3"
   },
   "scripts": {
     "dev": "ts-node src/index.ts",
-    "dev:watch": "ts-node-dev --respawn src/index.ts"
+    "dev:watch": "ts-node-dev --respawn src/index.ts",
+    "test": "jest"
   },
   "dependencies": {
-    "axios": "^0.19.2"
+    "@types/redux-mock-store": "^1.0.2",
+    "axios": "^0.19.2",
+    "redux": "^4.0.5",
+    "redux-mock-store": "^1.5.4",
+    "redux-thunk": "^2.3.0",
+    "typescript-fsa-reducers": "^1.2.1",
+    "typescript-fsa-redux-thunk": "^2.1.9"
   }
 }
