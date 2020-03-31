@@ -1,127 +1,87 @@
-import 'isomorphic-fetch';
-import { createStore, applyMiddleware, AnyAction } from 'redux';
-import thunkMiddleware, { ThunkMiddleware } from 'redux-thunk';
-import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import actionCreatorFactory from 'typescript-fsa';
-import { asyncFactory } from 'typescript-fsa-redux-thunk';
+import axios from "axios";
 
-/** You can optionally use custom Error types */
-class CustomError extends Error { }
+// // 基本的な書き方
+// axios.get("http://example.com")
+//   .then(response => {
+//     console.log("status:", response.status);
+//     console.log("data:", response.data);
+//   })
+//   .catch(error => {
+//     console.log("Error: ", error);
+//   });
+//
+// // メソッドをコンフィグで指定できる
+// axios({url: "http://example.com", method: "GET"})
+//   .then(response => {
+//     console.log("status:", response.status);
+//     console.log("data:", response.data);
+//   })
+//   .catch(error => {
+//     console.log("Error: ", error);
+//   });
+//
+// // query parameterも指定できる
+// axios({method: "GET", url: "https://example.com", params: {name: "hoge"}})
+//   .then(response => {
+//     console.log("url", response.headers);
+//     console.log("request path:", response.request["path"]);
+//     console.log("status:", response.status);
+//     console.log("data:", response.data);
+//   })
+//   .catch(error => {
+//     console.log("Error: ", error);
+//   });
+//
+// // POSTのとき、送るものはconfigのdataに突っ込む
+// axios({
+//   method: "POST",
+//   url: "https://example.com",
+//   data: { name: "HOGE" }
+// })
+//   .then(response => {
+//     console.log("url", response.headers);
+//     console.log("request path:", response.request["path"]);
+//     console.log("status:", response.status);
+//     console.log("data:", response.data);
+//   })
+//   .catch(error => {
+//     console.log("Error: ", error);
+//   });
+//
+//
+// config毎回書くのめんどくさいから、固定する
+const axiosInstance = axios.create({
+  xsrfHeaderName: "X-XSRF-Token",
+  withCredentials: true
+});
 
-/** Parameters used for logging in */
-export interface LoginParams {
-  email: string;
-  password: string;
-}
+axiosInstance.interceptors.request.use(request => {
+    // ココに割り込み処理が書ける
+  return request;
+});
 
-/** The object that comes back from the server on successful login */
-interface UserToken {
-  token: string;
-}
+axiosInstance.interceptors.response.use(response => {
+  // ココに割り込み処理が書ける
+  response.data = "HOGEHOGEHOGEHO";
+  return response;
+});
 
-/** The shape of our Redux store's state */
-interface State {
-  title: string;
-  userToken: UserToken;
-  loggingIn?: boolean;
-  error?: CustomError;
-}
-
-/** The typescript-fsa action creator factory function */
-const create = actionCreatorFactory('examples');
-
-/** The typescript-fsa-redux-thunk async action creator factory function */
-const createAsync = asyncFactory<State>(create);
-
-/** Normal synchronous action */
-const changeTitle = create<string>('Change the title');
-
-/** The asynchronous login action; Error type is optional */
-export const login = createAsync<
-  LoginParams, // args of async function, started,  p.params of done
-  UserToken,  // return of async function, and p.result of done
-  CustomError>(
-  'Login',
-  async (params , dispatch) => {
-    console.log("Start async login", params);
-    const url = `https://reqres.in/api/login`;
-    const options: RequestInit = {
-      method: 'POST',
-      body: JSON.stringify(params),
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8'
-      }
-    };
-    const res = await fetch(url, options);
-    if (!res.ok) {
-      throw new CustomError(`Error ${res.status}: ${res.statusText}`);
-    }
-
-    dispatch(changeTitle('You are logged-in'));
-
-    return res.json();
-  }
-);
-
-/** An initial value for the application state */
-const initial: State = {
-  title: 'Please login',
-  userToken: {
-    token: ''
-  }
-};
-
-/** Reducer, handling updates to indicate logging-in status/error */
-const reducer = reducerWithInitialState(initial)
-  .case(changeTitle, (state, title) => ({
-    ...state,
-    title
-  }))
-  .case(login.async.started, (state, params) => {
-    // same params with async function
-    console.log("reducer/login started", params);
-    return {
-      ...state,
-      loggingIn: true,
-      error: undefined
-    };
+axiosInstance.request({ url: "http://example.com", method: "GET"})
+  .then(response => {
+    console.log("request path:", response.request["path"]);
+    console.log("status:", response.status);
+    console.log("data:", response.data);
   })
-  .case(login.async.failed, (state, { error }) => ({
-    ...state,
-    loggingIn: false,
-    error
-  }))
-  .case(login.async.done, (state, { result }) => {
-    // result: { params: [same params with async function], result: [return of async function]}
-    console.log("reducer/login done", result);
-    return {
-      ...state,
-      userToken: result,
-      loggingIn: false,
-      error: undefined
-    };
+  .catch(error => {
+    console.log("Error: ", error);
   });
 
-/** Putting it all together */
-(async () => {
-  // Declaring the type of the redux-thunk middleware is what makes
-  // `store.dispatch` work. (redux@4.x, redux-thunk@2.3.x)
-  const thunk: ThunkMiddleware<State, AnyAction> = thunkMiddleware;
-  const store = createStore(reducer, applyMiddleware(thunk));
 
-  console.log(store.getState().title);
-
-  try {
-    // See https://reqres.in/api/users for valid users on this site
-    await store.dispatch(login({
-      email: 'eve.holt@reqres.in',
-      password: 'cityslicka'
-    }));
-
-    const { title, userToken } = store.getState();
-
-    console.log(title, userToken);
-  } catch (err) {
-    console.log(err);
-  }
-})();
+// 複数APIの並列処理
+axios.all([
+  axiosInstance.request({ url: "https://google.com", method: "GET" }),
+  axiosInstance.request({ url: "https://yahoo.com", method: "GET" }),
+]).then(axios.spread( (api1Result, api2Result) => {
+  console.log(api1Result.status, api1Result.data);
+  console.log(api2Result.status, api2Result.data);
+}));
