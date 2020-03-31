@@ -1,4 +1,5 @@
 import axios from "axios";
+import MockAdapter from "axios-mock-adapter";
 
 // // 基本的な書き方
 // axios.get("http://example.com")
@@ -62,11 +63,17 @@ axiosInstance.interceptors.request.use(request => {
 
 axiosInstance.interceptors.response.use(response => {
   // ココに割り込み処理が書ける
-  response.data = "HOGEHOGEHOGEHO";
+  // response.data = "HOGEHOGEHOGEHO";
   return response;
 });
 
-axiosInstance.request({ url: "http://example.com", method: "GET"})
+const mock = new MockAdapter(axiosInstance);
+
+mock.onGet("http://example.com/hoge").reply(200, {
+  users: [{ id: 1, name: "John Smith"}]
+});
+
+axiosInstance({ url: "http://example.com/hoge", method: "GET"})
   .then(response => {
     console.log("request path:", response.request["path"]);
     console.log("status:", response.status);
@@ -77,11 +84,11 @@ axiosInstance.request({ url: "http://example.com", method: "GET"})
   });
 
 
-// 複数APIの並列処理
-axios.all([
-  axiosInstance.request({ url: "https://google.com", method: "GET" }),
-  axiosInstance.request({ url: "https://yahoo.com", method: "GET" }),
-]).then(axios.spread( (api1Result, api2Result) => {
-  console.log(api1Result.status, api1Result.data);
-  console.log(api2Result.status, api2Result.data);
-}));
+// // 複数APIの並列処理
+// axios.all([
+//   axiosInstance.request({ url: "https://google.com", method: "GET" }),
+//   axiosInstance.request({ url: "https://yahoo.com", method: "GET" }),
+// ]).then(axios.spread( (api1Result, api2Result) => {
+//   console.log(api1Result.status, api1Result.data);
+//   console.log(api2Result.status, api2Result.data);
+// }));
