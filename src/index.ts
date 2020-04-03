@@ -73,7 +73,7 @@ mock.onGet("http://example.com/hoge").reply(200, {
   users: [{ id: 1, name: "John Smith"}]
 });
 
-axiosInstance({ url: "http://example.com/hoge", method: "GET"})
+axiosInstance.request({ url: "http://example.com/hoge", method: "GET"})
   .then(response => {
     console.log("request path:", response.request["path"]);
     console.log("status:", response.status);
