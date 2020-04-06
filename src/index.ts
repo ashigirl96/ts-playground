@@ -1,6 +1,7 @@
 console.log('Hello');
 
 
-const hoge = (str: string) => str;
+const hoge3 = (str: number) => `number: ${str}`;
 
-const hoge2 = (str: string) => str;
+
+console.log(hoge3(3));

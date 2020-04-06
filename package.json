@@ -16,12 +16,18 @@
   },
   "lint-staged": {
     "*.css": "stylelint",
-    "*.{js, jsx, ts, tsx}": [
-      "eslint --ext --fix"
+    "*.ts": [
+      "eslint --fix"
+    ],
+    "*.tsx": [
+      "eslint --fix"
     ]
   },
   "devDependencies": {
+    "@types/react": "^16.9.32",
+    "@types/react-dom": "^16.9.6",
     "@typescript-eslint/eslint-plugin": "^2.24.0",
+    "eslint": "^6.8.0",
     "eslint-config-airbnb-typescript": "^7.2.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
@@ -31,9 +37,10 @@
     "lint-staged": "^10.1.2",
     "ts-node": "^8.6.2",
     "ts-node-dev": "^1.0.0-pre.44",
-    "typescript": "^3.8.3",
-    "eslint": "^6.8.0"
+    "typescript": "^3.8.3"
   },
   "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   }
 }
