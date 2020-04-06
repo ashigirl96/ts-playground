@@ -5,6 +5,21 @@
   "repository": "ssh://git@github.com/ashigirl96/ts-playground.git",
   "author": "ashigirl96 <reon@mma.cs.tsukuba.ac.jp>",
   "license": "MIT",
+  "scripts": {
+    "dev": "ts-node src/index.ts",
+    "dev:watch": "ts-node-dev --respawn src/index.ts"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.css": "stylelint",
+    "*.{js, ts, jsx, tsx}": [
+      "eslint --fix"
+    ]
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.24.0",
     "eslint-config-airbnb-typescript": "^7.2.0",
@@ -12,15 +27,13 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.0",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.1.2",
     "ts-node": "^8.6.2",
     "ts-node-dev": "^1.0.0-pre.44",
-    "typescript": "^3.8.3"
-  },
-  "scripts": {
-    "dev": "ts-node src/index.ts",
-    "dev:watch": "ts-node-dev --respawn src/index.ts"
+    "typescript": "^3.8.3",
+    "eslint": "^6.8.0"
   },
   "dependencies": {
-    "eslint": "^6.8.0"
   }
 }
