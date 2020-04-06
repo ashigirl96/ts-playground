@@ -1,8 +1,6 @@
 console.log('Hello');
 
 
+const hoge = (str: string) => str;
 
-const hoge    = (str: string)  => {
-
- return str;
-}
+const hoge2 = (str: string) => str;

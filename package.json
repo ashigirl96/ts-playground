@@ -16,8 +16,8 @@
   },
   "lint-staged": {
     "*.css": "stylelint",
-    "*.{js, ts, jsx, tsx}": [
-      "eslint --fix"
+    "*.{js, jsx, ts, tsx}": [
+      "eslint --ext --fix"
     ]
   },
   "devDependencies": {
