@@ -6,6 +6,8 @@
   "author": "ashigirl96 <reon@mma.cs.tsukuba.ac.jp>",
   "license": "MIT",
   "scripts": {
+    "watch": "webpack-dev-server --mode development --env.development --open --hot",
+    "build": "webpack --mode production --env.production",
     "dev": "ts-node src/index.ts",
     "dev:watch": "ts-node-dev --respawn src/index.ts",
     "lint": "eslint --ext .js,.ts,.tsx ./src --fix"
@@ -34,12 +36,18 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.0",
+    "fork-ts-checker-webpack-plugin": "^4.1.2",
+    "html-webpack-plugin": "^4.0.4",
     "husky": "^4.2.3",
     "lint-staged": "^10.1.2",
     "prettier": "^2.0.4",
+    "ts-loader": "^6.2.2",
     "ts-node": "^8.6.2",
     "ts-node-dev": "^1.0.0-pre.44",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
     "react": "^16.13.1",
