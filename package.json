@@ -24,10 +24,12 @@
     ]
   },
   "devDependencies": {
+    "@types/classnames": "^2.2.10",
     "@types/react": "^16.9.32",
     "@types/react-dom": "^16.9.6",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",
+    "css-loader": "^4.2.1",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-typescript": "^7.2.0",
     "eslint-config-prettier": "^6.10.1",
@@ -40,8 +42,12 @@
     "html-webpack-plugin": "^4.0.4",
     "husky": "^4.2.3",
     "lint-staged": "^10.1.2",
+    "mini-css-extract-plugin": "^0.10.0",
     "moment": "^2.27.0",
     "prettier": "^2.0.4",
+    "sass": "^1.26.10",
+    "sass-loader": "^9.0.3",
+    "style-loader": "^1.2.1",
     "ts-loader": "^6.2.2",
     "ts-node": "^8.6.2",
     "ts-node-dev": "^1.0.0-pre.44",
@@ -51,6 +57,7 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
+    "classnames": "^2.2.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   }

@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster');
+
+@mixin font-Roboto {
+  font-family: "Lobster";
+  font-style: normal;
+}
+
+.font {
+  @include font-Roboto;
+  color: #fff;
+  background-color: #000;
+}
+
+@mixin font-Lobster {
+  font-family: Lobster;
+  font-style: normal;
+}
+
+.sticker {
+  @include font-Lobster;
+  margin: 20px;
+  padding: 10px;
+  font-size: 60px;
+  letter-spacing: 0.03em;
+}
+
+.link {
+  margin: 10px;
+  padding: 15px 40px;
+  border: 3px solid;
+  background-color: #FFFFFF;
+  color: #000000;
+  font-size: 25px;
+  letter-spacing: 0.03px;
+  text-decoration: none;
+
+  &.btn {
+    display: inline-block;
+  }
+
+  &.btn-block {
+    display: block;
+    text-align: center;
+  }
+}
+
+.before-content {
+  &:before {
+    margin-right: 10px;
+    border: 4px solid #EE2020;
+    color: #FFFFFF;
+    background-color: aqua;
+    font-size: 14px;
+    content: "NEW";
+  }
+
+  &:after {
+    background-color: beige;
+    font-size: 14px;
+    margin-left: -10px;
+    content: "★"
+  }
+}
+
+.under-line {
+  position: relative; // ここを基準にする
+  padding-bottom: 20px;
+  font-size: 40px;
+
+  &:after {
+    position: absolute; // 絶対指定で動かしたい要素
+    left: 0;
+    bottom: 0;
+    width: 110%;
+    height: 3px;
+    background-color: black;
+    content: "hogehoge";
+  }
+}
+
+.parent {
+  position: relative;
+}
+
+.absolute-position {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.background-orange {
+  background-color: coral;
+  //padding-right: 10px;
+}
+
+.background-blue {
+  background-color: deepskyblue;
+  padding-right: 20px;
+  //padding-right: 10px;
+}
+
+.react-icon {
+  position: relative;
+  padding: 0;
+  width: 300px;
+
+  &::after {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: #EE2020;
+    background-color: black;
+    padding: 0 2px;
+    line-height: 1.5px;
+    content: "React";
+  }
+}
+
+h1 {
+  position: relative;
+  padding: 1em; /*要素内の余白*/
+  background: silver; /*背景色*/
+  display: inline-block;
+
+  &::before { /*疑似要素*/
+    position: absolute;
+    content: 'ラベル';
+    top: 0;
+    left: 0;
+    color: white; /*文字色*/
+    padding: 0.2em; /*余白*/
+    background: #F89174; /*背景色*/
+    font-size: 0.5em;
+  }
+
+  &.center {
+    margin: 10px auto;
+  }
+
+}
+
+h2 {
+  &.center {
+    text-align: center;
+  }
+}
+
+.links {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  a {
+    color: #000000;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 20px;
+
+    &::before {
+      margin: 10px;
+      color: #EE2020;
+      background-color: black;
+      content: "★";
+    }
+  }
+
+  .red {
+    background-color: #ee827c;
+    line-height: 70px;
+  }
+
+  .blue {
+    background-color: #007bbb;
+    line-height: 30px;
+  }
+}
+
+.map {
+  display: grid;
+  color: #007bbb;
+  grid-template-areas: "text1 map" "text2 map";
+  @media (max-width: 767px) {
+    grid-template-areas: "text1 text2" "map map";
+  }
+
+  .detail {
+    font-size: 20px;
+
+    &.text1 {
+      grid-area: text1;
+    }
+
+    &.text2 {
+      grid-area: text2;
+    }
+  }
+  #map {
+    width: 100%;
+    height: 450px;
+    background-color: #000000;
+    grid-area: map;
+    color: #FFFFFF;
+  }
+}

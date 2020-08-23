@@ -2,13 +2,15 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 
 module.exports = (env) => {
 
   return {
     entry: './src/index.tsx',
     resolve: {
-      extensions: ['.ts', '.tsx', '.js'],
+      extensions: ['.ts', '.tsx', '.js', ".scss"],
       alias: {
         components: path.resolve(__dirname, './src/components/')
       }
@@ -27,7 +29,21 @@ module.exports = (env) => {
             transpileOnly: true
           },
           exclude: /dist/,
-        }
+        },
+        {
+          test: /.scss$/,
+          use: [
+            {
+              // Creates `styles` nodes from JS strings
+              loader: "style-loader", options: { injectType: 'styleTag'},
+            },
+            {
+              loader: "css-loader?modules", // modulesをつけることでimport styles from できる
+            },
+            // "css-loader", // Translates css into common-js
+            "sass-loader", // Compiles sass to css
+          ],
+        },
       ]
     },
     plugins: [

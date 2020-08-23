@@ -1,0 +1,79 @@
+$color-black:  #000000;
+$color-bg-lightblue: #f3f6f9;
+$color-bg-lightgreen: #f1f9f7;
+
+.text {
+  font-size: 100px;
+
+  &.red { // 複数のクラスを選択
+    color: #ee827c;
+  }
+
+  &.yellow { // 複数のクラスを選択
+    color: gold;
+  }
+
+  .blue { // textを囲ってる奴のネストしてるタグにつけられる
+    color: #007bbb;
+  }
+
+  &Green { // .textGreenになる
+    color: lawngreen;
+  }
+}
+
+.right {
+  text-align: right;
+  .btn {
+    background: salmon; /* 背景色 */
+    color: #fff; /* 文字色 */
+    padding: 16px 40px; /* 上下の余白、左右の余白 */
+    text-decoration: none; /* デフォルトで入るリンクの下線を消す */
+    border-radius: 30px; /* 角を丸くする */
+    cursor: pointer;
+
+    transition-property: opacity;
+    -webkit-transition-property: opacity;
+    transition-duration: .5s;
+    -webkit-transition-duration: .5s;
+    position: relative;
+
+    &:hover {
+      opacity: .7;
+    }
+    &::before {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      color: #007bbb;
+      line-height: 1.5;
+      content: "do";
+    }
+  }
+}
+
+.globalNav {
+  margin-top: 15px;
+  text-align: center;
+
+  .navItem {
+    display: inline-block;
+    margin: 0 10px;
+
+    a {
+      display: inline-block;
+      width: 100px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      border-radius: 8px;
+      color: #666;
+      font-size: 1.3rem;
+      letter-spacing: 1px;
+      &:hover {
+        background-color: #d03c56;
+        color: #fff;
+      }
+    }
+  }
+}
