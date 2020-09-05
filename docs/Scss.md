@@ -1,3 +1,5 @@
+[toc]
+
 # CSS
 
 - 大枠(display 系  block/inline , flex, grid)
@@ -95,6 +97,20 @@
     - grid-template-areas 
   - 子要素：
     - Grid-area
+
+
+
+## misc
+
+- `max-height`を決めてから、`overflow: auto` とすると、**スクロールできるようになる**
+  - cssは`height`や`width`を与えることでそのボックス以上にコンテンツがあると、オーバーフローする
+  - [`overflow`](https://developer.mozilla.org/ja/docs/Web/CSS/overflow) プロパティは要素のオーバーフローを制御し、ブラウザにどのように動作させるかを伝えます。
+  - `overflow: scroll`にすると、常にスクロールバーが出てきてしまうのに対して、 コンテンツがボックスに収まらない場合にのみ、スクロールバーを表示する場合は `overflow: auto` を使用します。
+- `table`: border-collapse: collapse;を使うと
+
+## 位置移動
+
+- 中央寄せ：margin: 0 auto;
 
 
 

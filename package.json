@@ -9,7 +9,7 @@
     "watch": "webpack-dev-server --mode development --env.development --open --hot",
     "build": "webpack --mode production --env.production",
     "dev": "ts-node src/index.ts",
-    "dev:watch": "ts-node-dev --respawn src/index.ts",
+    "dev:watch": "ts-node-dev --respawn",
     "lint": "eslint --ext .js,.ts,.tsx ./src --fix"
   },
   "husky": {

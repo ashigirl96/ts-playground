@@ -35,7 +35,7 @@ module.exports = (env) => {
           use: [
             {
               // Creates `styles` nodes from JS strings
-              loader: "style-loader", options: { injectType: 'styleTag'},
+              loader: "style-loader",
             },
             {
               loader: "css-loader?modules", // modulesをつけることでimport styles from できる
