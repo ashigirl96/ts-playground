@@ -39,6 +39,8 @@
   
 - `<T extends U>`とすることで、今まで任意の型`T`で良かったが、`U`のサブタイプでなければならなくなる
 
+  - `U`に代入可能である任意の型`T`
+
 - interfaceを使うと、インラインのように型エイリアスを使わなくて住む
 
   - ```typescript
@@ -114,9 +116,30 @@
 
 - `keyof` は、型のkeyを取り出す
 
+  - ```typescript
+    const obj = {
+      foo: 'str',
+      0: 'num',
+    };
+    
+    // ObjType = 0 | 'foo'
+    type ObjType = keyof (typeof obj)
+    
+    // typeof objの時点で
+    interface Obj {
+      foo: string;
+      number: string;
+    }
+    // が得られる。そのObjのプロパティ名すべてをkeyofで取り出すので 0 | 'foo'となる
+    ```
+
+  - `keyof T`は配列じゃなくて、`T`のすべてのプロパティ名の一つを指す
+
   - 使い方として、`fieldName: keyof Values`として、引数の許容範囲を狭くする
 
-  - 以下は、`T`の型と、`T`のキーのみを許容した`K`だよ
+  - 以下は、`T`のプロパティ名のどれか`K`
+
+  - `keyof T`はTのすべてのプロパティ名の型
 
     ```typescript
     <T, K extends keyof T>
@@ -136,6 +159,10 @@
 
 - `{[P in K]: T}`はmapped typesと呼ばれ、`P`は型変数、`K, T`は何らかの型である。`K`は`string`のsubtypeである必要がある
 
+  - `P in 'A'|'B|'C'`のイメージ：`['A', 'B', 'C']`のforを回してそれぞれに同じ操作をするイメージ
+
+    - `[P in 'foo' | 'bar']: number`: `{[P: number] for P in ['foo', 'bar'] }` みたいな
+    
   - ```typescript
     type Obj1 = {[P in 'foo' | 'bar']: number};
     interface Obj2 {
@@ -173,8 +200,60 @@
     ```
 
 - 宣言空間内で `export`しないと、外に値は参照されない
+
 - `declare global`スコープに宣言されていると、`interface`の`export`をせずにオーバーロードできるようになる
+
 - 関数の `Generics`
   - arrow functionのGenerics: `const boxed = <T>(props: T) => ({ value: props })`
-  - 
+  
+- `(...args: any[])=> any`: は任意の関数
 
+- `type Exclude<T, U>`:型 T が型 U に代入可能であれば`never`、そうでなければ型 T を返す Conditional Type です。
+
+  - ```typescript
+    type A = Exclude<string, number> // string
+    type B = Exclude<string, any> // never
+    type C = Exclude<string | number | boolean, string | boolean> // number
+    ```
+
+- `type Extract<T, U>`: Excludeの逆
+
+  - ```typescript
+    type A = Extract<string, number> // never
+    type B = Extract<string, any> // string
+    type C = Extract<string | number | boolean, string | boolean> // string | boolean
+    ```
+
+- `infer`は、Conditional type `T extends U ? X : Y` の条件(Uのとこ)に `infer S` と書くと、Sに補足された型を X の部分で再利用可能になります。
+
+  - 正規表現の`()` を想像してください。`/hoge(\d+)$/` に対して、hoge1の末尾数字部分をあとから参照可能になるじゃないですか、これと同じです。
+
+- `T extends readonly any[]`任意の配列
+
+- `typeof obj`: objの型が得られる
+
+- `Omit<T, K extends keyof T>`: 型 T の中から、キー名が K に当てはまるプロパティを*除外した*新しい型を返します。
+
+  - ```typescript
+    interface Foo {
+      foo: string
+      bar: number
+      baz: boolean
+    }
+    
+    type FooWithoutBar = Omit<Foo, 'bar'>
+    
+    // FooWithoutBar {
+    //   foo: string
+    //   baz: boolean
+    // }
+    ```
+
+  - ```typescript
+    type MyExclude<A, B> = A extends B ? never : A
+    type MyOmit<T, K extends keyof T> = { [S in MyExclude<keyof T, K>]: T[S] }
+    ```
+
+    - `never`って否定っぽいね
+
+- 
